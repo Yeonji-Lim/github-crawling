@@ -40,11 +40,10 @@ CREATE TABLE Content (
 );
 
 CREATE TABLE MemberStatus (
-  id bigint NOT NULL AUTO_INCREMENT,
   member_id bigint NOT NULL,
-  contents_id bigint NOT NULL,
-  role text NOT NULL,
-  PRIMARY KEY (id),
-  FOREIGN KEY (member_id) REFERENCES Member(id),
-  FOREIGN KEY (contents_id) REFERENCES Content(id)
+  content_id bigint NOT NULL,
+  role varchar(10) NOT NULL,
+  PRIMARY KEY (member_id, content_id, role),
+  FOREIGN KEY (content_id) REFERENCES Content(id),
+  FOREIGN KEY (member_id) REFERENCES Member(id)
 );
