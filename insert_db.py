@@ -32,9 +32,9 @@ def is_user_in_member(cur: pymysql.cursors.Cursor, u: NamedUser.NamedUser):
 
 
 # content: Issue.Issue or PullRequest.PullRequest
-def insert_db_contents_and_member_statuses(cur: pymysql.cursors.Cursor, repo: Repository.Repository, content):
+def insert_db_contents_and_member_statuses(cur: pymysql.cursors.Cursor, repo: Repository.Repository, content, content_type):
     sql = 'insert into Content(id, title, content_num, repo_id, content_type, url, created_at, updated_at) values(%s, %s, %s, %s, %s, %s, %s, %s) on duplicate key update title = values(title), content_type = values(content_type), updated_at = values(updated_at)'
-    cur.execute(sql, (int(content.id), content.title, content.number, int(repo.id), 'PULLREQUEST', content.url, content.created_at, content.updated_at))
+    cur.execute(sql, (int(content.id), content.title, content.number, int(repo.id), content_type, content.url, content.created_at, content.updated_at))
     sql = 'insert ignore into MemberStatus(member_id, content_id, role) values(%s, %s, %s)'
     if is_user_in_member(cur, content.user):
         cur.execute(sql, (int(content.user.id), int(content.id), 'AUTHOR'))
@@ -52,6 +52,6 @@ def insert_db_contents_in_last_week(cur: pymysql.cursors.Cursor, org: Organizati
         sql = 'insert into Repository(id, name, url) values(%s, %s, %s) on duplicate key update name = values(name), url = values(url)'
         cur.execute(sql, (int(r.id), r.name, r.url))
         for i in get_repo_issues_last_week(r):
-            insert_db_contents_and_member_statuses(cur, r, i)
+            insert_db_contents_and_member_statuses(cur, r, i, 'ISSUE')
         for p in get_repo_prs_last_week(r):
-            insert_db_contents_and_member_statuses(cur, r, p)
+            insert_db_contents_and_member_statuses(cur, r, p, 'PULLREQUEST')
