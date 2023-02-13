@@ -14,7 +14,7 @@ github-crawling
  ┣ docs
  ┃ ┗ github_crawling_erd.png
  ┣ src
- ┃ ┣ schema.sql                     -> 테이블 생성 쿼리
+ ┃ ┣ schema.sql                       -> 테이블 생성 쿼리
  ┃ ┣ get_issue.py                     -> 이슈 목록 불러오는 메소드 모음
  ┃ ┣ get_pr.py                        -> PR 목록 불러오는 메소드 모음
  ┃ ┣ initial_set.py                   -> 실행 시 처음 처리 되어야 하는 부분
@@ -99,7 +99,7 @@ github-crawling
 
 6. 최근 일주일 기록 저장
    ```
-   python3 src/insert_info_last_week.py
+   python3 src/insert_content_last_week.py
    ```
 
 ## ERD
