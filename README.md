@@ -80,7 +80,7 @@ github-crawling
    테이블 생성
 
    ```
-   source [github-crawling/createdb.sql의 절대경로];
+   source [github-crawling/schema.sql의 절대경로];
    ```
 
 4. initial_set.py에 토큰 설정하기
