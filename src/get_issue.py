@@ -21,4 +21,4 @@ def get_repo_issues_last_week(r: Repository.Repository):
 
 def get_repo_issues_last_day(r: Repository.Repository):
     print('===== start : get_repo_issues_last_day =====')
-    return [i for i in r.get_issues(state="closed", since=last_week) if i.user.name != "Deleted User" and i.closed_at >= last_day]
+    return [i for i in r.get_issues(state="closed", since=last_day) if i.user.name != "Deleted User" and i.closed_at >= last_day]
