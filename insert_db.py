@@ -33,25 +33,32 @@ def is_user_in_member(cur: pymysql.cursors.Cursor, u: NamedUser.NamedUser):
 
 # content: Issue.Issue or PullRequest.PullRequest
 def insert_db_contents_and_member_statuses(cur: pymysql.cursors.Cursor, repo: Repository.Repository, content, content_type):
-    sql = 'insert into Content(id, title, content_num, repo_id, content_type, url, created_at, updated_at) values(%s, %s, %s, %s, %s, %s, %s, %s) on duplicate key update title = values(title), content_type = values(content_type), updated_at = values(updated_at)'
-    cur.execute(sql, (int(content.id), content.title, content.number, int(repo.id), content_type, content.url, content.created_at, content.updated_at))
+    is_target = False
     sql = 'insert ignore into MemberStatus(member_id, content_id, role) values(%s, %s, %s)'
     if is_user_in_member(cur, content.user):
         cur.execute(sql, (int(content.user.id), int(content.id), 'AUTHOR'))
+        is_target = True
     for a in content.assignees:
         if is_user_in_member(cur, a):
             cur.execute(sql, (int(a.id), int(content.id), 'ASSIGNEE'))
+            is_target = True
     if isinstance(content, PullRequest.PullRequest):
         for r in content.get_reviews():
             if is_user_in_member(cur, r):
                 cur.execute(sql, (int(r.user.id), int(content.id), 'REVIEWER'))
-
+                is_target = True
+    if is_target:
+        sql = 'insert into Content(id, title, content_num, repo_id, content_type, url, created_at, updated_at) values(%s, %s, %s, %s, %s, %s, %s, %s) on duplicate key update title = values(title), url = values(url), updated_at = values(updated_at)'
+        cur.execute(sql, (int(content.id), content.title, content.number, int(repo.id), content_type, str(content.url).replace('https://api.github.com/repos/', 'https://github.com/'), content.created_at, content.updated_at))
+    return is_target
 
 def insert_db_contents_in_last_week(cur: pymysql.cursors.Cursor, org: Organization.Organization):
     for r in org.get_repos():
-        sql = 'insert into Repository(id, name, url) values(%s, %s, %s) on duplicate key update name = values(name), url = values(url)'
-        cur.execute(sql, (int(r.id), r.name, r.url))
+        is_target = False
         for i in get_repo_issues_last_week(r):
-            insert_db_contents_and_member_statuses(cur, r, i, 'ISSUE')
+            is_target = insert_db_contents_and_member_statuses(cur, r, i, 'ISSUE')
         for p in get_repo_prs_last_week(r):
-            insert_db_contents_and_member_statuses(cur, r, p, 'PULLREQUEST')
+            is_target = insert_db_contents_and_member_statuses(cur, r, p, 'PULLREQUEST')
+        if is_target:
+            sql = 'insert into Repository(id, name, url) values(%s, %s, %s) on duplicate key update name = values(name), url = values(url)'
+            cur.execute(sql, (int(r.id), r.name, r.url))
