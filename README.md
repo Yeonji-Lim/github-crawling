@@ -86,6 +86,6 @@ github-crawling
     python3 insert_info_last_week.py
     ```
 
-## ERD Diagram
+## ERD
 
 ![github_crawling_erd](./docs/github_crawling_erd.png)
