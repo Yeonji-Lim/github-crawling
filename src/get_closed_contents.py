@@ -3,8 +3,8 @@ import pymysql
 import sys
 from datetime import datetime, timedelta
 
-conn = pymysql.connect(host='127.0.0.1', user="root",
-                       password="yourpassword", db="github_crawling", charset="utf8mb4")
+conn = pymysql.connect(host='127.0.0.1', user="crawler",
+                       password="dalcomsoft", db="github_crawling", charset="utf8mb4")
 c = conn.cursor()
 
 g = Github("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")

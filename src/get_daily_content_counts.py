@@ -1,8 +1,9 @@
-import pymysql
 from datetime import datetime, timedelta
+import pymysql
 
-conn = pymysql.connect(host='127.0.0.1', user="root",
-                       password="yourpassword", db="github_crawling", charset="utf8mb4")
+
+conn = pymysql.connect(host='127.0.0.1', user="crawler",
+                       password="dalcomsoft", db="github_crawling", charset="utf8mb4")
 c = conn.cursor()
 
 yesterday = datetime.now() - timedelta(days=1)
