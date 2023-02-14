@@ -25,7 +25,7 @@ DROP TABLE IF EXISTS `closed_contents`;
 CREATE TABLE `closed_contents` (
   `id` bigint unsigned NOT NULL AUTO_INCREMENT,
   `repository` varchar(191) NOT NULL,
-  `issue_id` int NOT NULL,
+  `issue_id` int NULL,
   `pr_id` int DEFAULT NULL,
   `authored` varchar(191) NOT NULL,
   `assignees` varchar(255) DEFAULT NULL,
