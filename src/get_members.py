@@ -1,8 +1,8 @@
 from github import Github
 import pymysql
 
-conn = pymysql.connect(host='127.0.0.1', user="root",
-                       password="yourpassword", db="github_crawling", charset="utf8mb4")
+conn = pymysql.connect(host='127.0.0.1', user="crawler",
+                       password="dalcomsoft", db="github_crawling", charset="utf8mb4")
 c = conn.cursor()
 
 g = Github("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")
@@ -22,8 +22,8 @@ for team in teams:
             if is_exist_member:
                 continue
 
-            sql = "INSERT INTO `members` (`name`, `nick`, `team`) VALUES (%s, %s, %s)"
-            c.execute(sql, (member.name, member.login, team.name))
+            sql = "INSERT INTO `members` (`id`, `name`, `nick`, `team`) VALUES (%s, %s, %s, %s)"
+            c.execute(sql, (member.id, member.name, member.login, team.name))
             conn.commit()
             print("===== {} member is inserted =====".format(member.login))
 
