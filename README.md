@@ -3,11 +3,13 @@
 Client팀과 Server팀 팀원들의 Github History를 Reporting하는 프로젝트
 
 ## Requirements
+
 - Python 3.9.6
-- mysql  Ver 8.0.32
+- mysql Ver 8.0.32
 - pip 23.0 from /Users/yourNick/Library/Python/3.9/lib/python/site-packages/pip (python 3.9)
 
 ## QuickStart
+
 ```sh
 git clone https://github.com/dalcomsoft/github-crawling.git
 cd github-crawling
@@ -54,3 +56,22 @@ Database : github_crawling
 Username : crawler
 
 Password : dalcomsoft
+
+
+## Testing
+
+[Install pytest](https://docs.pytest.org/en/7.2.x/getting-started.html#):
+
+```sh
+pip install -U pytest
+```
+
+Run tests:
+
+```sh
+pytest
+```
+
+## Deployment
+
+[TODO]
