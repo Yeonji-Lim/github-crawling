@@ -47,7 +47,7 @@ python3 src/get_weekly_content_counts.py
 
 IP : 3.35.165.253
 
-Port : 22
+Port : 3306
 
 Database : github_crawling
 
