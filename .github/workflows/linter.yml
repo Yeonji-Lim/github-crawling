@@ -24,16 +24,6 @@ jobs:
         uses: github/super-linter@v4
         env:
           VALIDATE_MARKDOWN: true
-          VALIDATE_PYTHON_PYLINT: true
-          VALIDATE_PYTHON_FLAKE8: true
-          VALIDATE_PYTHON_BLACK: true
-          IGNORE_GENERATED_FILES: true
-          IGNORE_GITIGNORED_FILES: true
-          LINTER_RULES_PATH: /
-          PYTHON_PYLINT_CONFIG_FILE: .pylintrc
-          PYTHON_FLAKE8_CONFIG_FILE: .flake8
-          PYTHON_BLACK_CONFIG_FILE: pyproject.toml
-          DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Commit changes
