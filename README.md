@@ -42,3 +42,15 @@ python3 src/get_daily_content_counts.py
 # 주별 각 멤버의 authored, assigned. reviewed 카운트를 weekly_content_counts 테이블에 저장하기
 python3 src/get_weekly_content_counts.py
 ```
+
+## Server Database Information
+
+IP : 3.35.165.253
+
+Port : 22
+
+Database : github_crawling
+
+Username : crawler
+
+Password : dalcomsoft
