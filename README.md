@@ -45,6 +45,19 @@ python3 src/get_daily_content_counts.py
 python3 src/get_weekly_content_counts.py
 ```
 
+## Server Database Information
+
+IP : 3.35.165.253
+
+Port : 3306
+
+Database : github_crawling
+
+Username : crawler
+
+Password : dalcomsoft
+
+
 ## Testing
 
 [Install pytest](https://docs.pytest.org/en/7.2.x/getting-started.html#):
