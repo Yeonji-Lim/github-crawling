@@ -5,7 +5,7 @@ from get_pr import *
 
 
 def get_org(g: Github):
-    return [x for x in g.get_user().get_orgs() if x.name == 'dalcomsoft'][0]
+    return [x for x in g.get_user().get_orgs() if x.name == '소속조직이름'][0]
 
 
 access_token = '엑세스토큰'
